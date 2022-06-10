@@ -1,0 +1,168 @@
+@import '_variables.scss';
+
+
+$shadow: 0px 6px 15px rgba(0, 0, 0, 0.5);
+
+$cardWidth: 100%;
+$cardHeight: 440px;
+
+$bannerColorLight: #456da3;
+$bannerColorDark: #022459;
+
+$bannerColorLightLiked: rgb(252, 123, 127);
+$bannerColorDarkLiked: rgb(79, 6, 9);
+
+$bannerColor: linear-gradient(45deg, $bannerColorDark, $bannerColorLight);
+$bannerHeight: 0.7rem;
+$bannerColorLiked: linear-gradient(45deg, $bannerColorDarkLiked, $bannerColorLightLiked);
+
+$cardColor: rgb(250, 244, 241);
+
+$animationTransition: 0.8s;
+
+.gradientText {
+  background-image: $bannerColor;
+  background-size: 100%;
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+.post {
+  background-color: $cardColor;
+  backdrop-filter: blur(7px);
+  width: $cardWidth;
+  height: $cardHeight;
+  border-radius: $borderRadius;
+  box-shadow: $shadow;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: fade-in 0.5s ease-in-out;
+
+  &__imageContainer {
+    margin: 0;
+    height: auto;
+    transition: $animationTransition;
+  }
+
+  &__media {
+    width: 100%;
+    height: $cardHeight * 2/3;
+    object-fit: cover;
+    transition: $animationTransition;
+    border-radius: $borderRadius $borderRadius 0  0;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    bottom: 0;
+    text-align: left;
+    padding: 1em 1em 0em 1em;
+    height: 100%;
+  }
+
+  &__title, &__date {
+    @extend .gradientText;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+  }
+
+  &__buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  //&::after {
+  //  background: $bannerColor;
+  //  bottom: 0;
+  //  content: '';
+  //  display: inline-block;
+  //  transition: $animationTransition;
+  //  align-self: center;
+  //  position: relative;
+  //  height: 2em;
+  //  width: 100%;
+  //  z-index: 1;
+  //}
+
+
+// Testing Animation
+  &__banner {
+    background: $bannerColor;
+    bottom: 0;
+    content: '';
+    display: inline-block;
+    transition: $animationTransition;
+    align-self: center;
+    position: relative;
+    height: $bannerHeight;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .banner-liked {
+    border-radius: 100px;
+    background: $bannerColorLiked;
+    height: $bannerHeight;
+    width: 0;
+
+    &--load {
+      animation: load 0.8s normal forwards;
+    }
+    &--unload {
+      animation: unload 0.8s normal forwards;
+    }
+  }
+
+  @keyframes load {
+    0% { width: 0; }
+    100% { width: 100%; }
+  }
+
+  @keyframes unload {
+    0% { width: 100%; }
+    100% { width: 0%; }
+  }
+
+  // ----- Testing Animation
+
+
+  //&--liked {
+  //  &::after {
+  //    background: $bannerColorLiked;
+  //  }
+  //}
+
+  &:hover {
+    box-shadow: 0px 7px 25px rgba(0, 0, 0, 0.3);
+    //
+    //&::after {
+    //  border-radius: $borderRadius;
+    //  width: 95%;
+    //  bottom: 5px;
+    //}
+
+    .post {
+      &__imageContainer { padding: 8px 8px 0 8px; }
+      &__media { border-radius: $borderRadius; }
+      &__banner {
+        border-radius: $borderRadius;
+        width: 95%;
+        bottom: 5px;
+      }
+    }
+  }
+
+  @keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+}
