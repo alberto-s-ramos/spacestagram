@@ -4,37 +4,37 @@ import Heart from "react-heart";
 import "../styles/post.scss";
 
 export const Post = (props) => {
-    const postRef = useRef();
+    const likeBanner = useRef();
 
     const [liked, setLiked] = useState(
-        JSON.parse(window.localStorage.getItem(`liked_${props.id}`)) === null
+        JSON.parse(window.localStorage.getItem(`liked_${props.media}`)) === null
             ? false
-            : JSON.parse(window.localStorage.getItem(`liked_${props.id}`))
+            : JSON.parse(window.localStorage.getItem(`liked_${props.media}`))
     );
 
     useEffect(() => {
-        setLiked(JSON.parse(window.localStorage.getItem(`liked_${props.id}`)));
+        setLiked(JSON.parse(window.localStorage.getItem(`liked_${props.media}`)));
     }, []);
 
     useEffect(() => {
-        window.localStorage.setItem(`liked_${props.id}`, liked);
+        window.localStorage.setItem(`liked_${props.media}`, liked);
     }, [liked]);
 
     const updateLikeStatus = () => {
-        let likeStatus = liked;
+        let likeStatus = !liked;
         setLiked(!liked);
 
         if (likeStatus === true) {
-            postRef.current.classList.remove('banner-liked--unload')
-            postRef.current.classList.add('banner-liked--load')
+            likeBanner.current.classList.remove('post__banner-liked--unload')
+            likeBanner.current.classList.add('post__banner-liked--load')
         } else {
-            postRef.current.classList.remove('banner-liked--load')
-            postRef.current.classList.add('banner-liked--unload')
+            likeBanner.current.classList.remove('post__banner-liked--load')
+            likeBanner.current.classList.add('post__banner-liked--unload')
         }
     }
 
     return (
-        <article ref={postRef} className="post">
+        <article className="post">
             <figure className="post__imageContainer">
                 {mediaFormat(props.media, props.title)}
             </figure>
@@ -57,7 +57,7 @@ export const Post = (props) => {
                 </div>
             </div>
             <div className="post__banner">
-                <div className={liked ? "banner-liked banner-liked--load" : "banner-liked banner-liked--unload"}></div>
+                <div ref={likeBanner} className="post__banner-liked" style={{width: liked ? '100%' : '0%'}}></div>
             </div>
         </article>
     );

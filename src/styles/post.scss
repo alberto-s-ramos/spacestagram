@@ -1,6 +1,5 @@
 @import '_variables.scss';
 
-
 $shadow: 0px 6px 15px rgba(0, 0, 0, 0.5);
 
 $cardWidth: 100%;
@@ -19,6 +18,7 @@ $bannerColorLiked: linear-gradient(45deg, $bannerColorDarkLiked, $bannerColorLig
 $cardColor: rgb(250, 244, 241);
 
 $animationTransition: 0.8s;
+$like-animation: 0.6s;
 
 .gradientText {
   background-image: $bannerColor;
@@ -80,21 +80,6 @@ $animationTransition: 0.8s;
     justify-content: flex-end;
   }
 
-  //&::after {
-  //  background: $bannerColor;
-  //  bottom: 0;
-  //  content: '';
-  //  display: inline-block;
-  //  transition: $animationTransition;
-  //  align-self: center;
-  //  position: relative;
-  //  height: 2em;
-  //  width: 100%;
-  //  z-index: 1;
-  //}
-
-
-// Testing Animation
   &__banner {
     background: $bannerColor;
     bottom: 0;
@@ -106,49 +91,30 @@ $animationTransition: 0.8s;
     height: $bannerHeight;
     width: 100%;
     z-index: 1;
-  }
 
-  .banner-liked {
-    border-radius: 100px;
-    background: $bannerColorLiked;
-    height: $bannerHeight;
-    width: 0;
+    &-liked {
+      border-radius: 100px;
+      background: $bannerColorLiked;
+      height: $bannerHeight;
+      width: 0;
 
-    &--load {
-      animation: load 0.8s normal forwards;
+      &--load { animation: load $like-animation normal forwards; }
+      &--unload { animation: unload $like-animation normal forwards; }
     }
-    &--unload {
-      animation: unload 0.8s normal forwards;
+
+    @keyframes load {
+      0% { width: 0; }
+      100% { width: 100%; }
+    }
+
+    @keyframes unload {
+      0% { width: 100%; }
+      100% { width: 0; }
     }
   }
-
-  @keyframes load {
-    0% { width: 0; }
-    100% { width: 100%; }
-  }
-
-  @keyframes unload {
-    0% { width: 100%; }
-    100% { width: 0%; }
-  }
-
-  // ----- Testing Animation
-
-
-  //&--liked {
-  //  &::after {
-  //    background: $bannerColorLiked;
-  //  }
-  //}
 
   &:hover {
     box-shadow: 0px 7px 25px rgba(0, 0, 0, 0.3);
-    //
-    //&::after {
-    //  border-radius: $borderRadius;
-    //  width: 95%;
-    //  bottom: 5px;
-    //}
 
     .post {
       &__imageContainer { padding: 8px 8px 0 8px; }
