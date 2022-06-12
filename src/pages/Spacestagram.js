@@ -11,6 +11,7 @@ export const Spacestagram = () => {
 
     const today = getToday();
     const lastMonth = getLastMonth();
+    let attemptedYesterday = false;
 
     useEffect(() => {
         fetchPhotos(lastMonth, today);
@@ -24,9 +25,10 @@ export const Spacestagram = () => {
             .then(res => {  setData(res.data.reverse()); })
             .catch(err => {
                 const ERROR_CODE = err.response.data.code;
-                console.log(err)
-                if(ERROR_CODE === 400 )
+                if(ERROR_CODE === 400 && !attemptedYesterday) {
+                    attemptedYesterday = true;
                     fetchPhotos(lastMonth, getYesterday())
+                } else {  console.error("Something went wrong. Please try again later")}
             })
             .finally(() => {
                 setLoading(false);
