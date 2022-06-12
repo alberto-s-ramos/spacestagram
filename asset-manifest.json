@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/spacestagram/static/css/main.ea61bcbd.css",
-    "main.js": "/spacestagram/static/js/main.66282168.js",
+    "main.js": "/spacestagram/static/js/main.5fa4bb63.js",
     "static/js/787.65bdd44b.chunk.js": "/spacestagram/static/js/787.65bdd44b.chunk.js",
     "index.html": "/spacestagram/index.html",
     "main.ea61bcbd.css.map": "/spacestagram/static/css/main.ea61bcbd.css.map",
-    "main.66282168.js.map": "/spacestagram/static/js/main.66282168.js.map",
+    "main.5fa4bb63.js.map": "/spacestagram/static/js/main.5fa4bb63.js.map",
     "787.65bdd44b.chunk.js.map": "/spacestagram/static/js/787.65bdd44b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ea61bcbd.css",
-    "static/js/main.66282168.js"
+    "static/js/main.5fa4bb63.js"
   ]
 }
