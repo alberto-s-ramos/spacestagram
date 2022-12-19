@@ -17,28 +17,27 @@ export const Spacestagram = () => {
         fetchPhotos(lastMonth, today);
     }, []);
 
-    const fetchPhotos = (lastMonth, today) => {
-        axios
-            .get(
+    const fetchPhotos = async (lastMonth, today) => {
+        try {
+            const res = await axios.get(
                 `https://api.nasa.gov/planetary/apod?api_key=jhXO5dL1JFE7XEvthy1NWoWilx1JeiSPviYRlDNo&start_date=${lastMonth}&end_date=${today}`
-            )
-            .then(res => {  setData(res.data.reverse()); })
-            .catch(err => {
-                const ERROR_CODE = err.response.data.code;
-                if(ERROR_CODE === 400 && !attemptedYesterday) {
-                    attemptedYesterday = true;
-                    fetchPhotos(lastMonth, getYesterday())
-                } else {  console.error("Something went wrong. Please try again later")}
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+            );
+            setData(res.data.reverse());
+        } catch (err){
+            const ERROR_CODE = err.response.data.code;
+            if(ERROR_CODE === 400 && !attemptedYesterday) {
+                attemptedYesterday = true;
+                fetchPhotos(lastMonth, getYesterday())
+            } else {  console.error("Something went wrong. Please try again later")}
+        } finally {
+            setLoading(false);
+        }
     };
 
     const photos = data.map((element, index) => (
         <Post
-            key={index}
-            id={index}
+            key={'nasa-post-'+index}
+            id={'nasa-post-'+index}
             media={element.url}
             title={element.title}
             date={element.date}
